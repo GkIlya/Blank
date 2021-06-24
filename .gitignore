@@ -1,0 +1,10 @@
+/.idea/
+/.git/
+/__pycache__/
+/middlwares.__pycache__/
+/handlers.__pycache__/
+/handlers.users.__pycache__/
+/handlers.group.__pycache__/
+/handlers.channel.__pycache__/
+/handlers.errors.__pycache__/
+/filters.__pycache__/
