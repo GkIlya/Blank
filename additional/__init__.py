@@ -1,2 +1,2 @@
-from . import funcion
+from . import function
 from . import data
