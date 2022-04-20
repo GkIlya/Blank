@@ -1,2 +1,4 @@
 aiogram==2.13
 asyncio==3.4.3
+SimpleQIWI==0.7
+pyQiwiP2P==2.0.0
