@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="969b3f05-e18c-45d7-8efd-1d08dd4b9f67" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/additional/data/accounts.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/additional/data/login.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/additional/data/transaction.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/additional/data/users.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/additional/function/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filters/fil.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/users/start.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keyboard/inline/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/additional/function/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/additional/function/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filters/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/users/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyboard/inline/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboard/inline/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="969b3f05-e18c-45d7-8efd-1d08dd4b9f67" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
