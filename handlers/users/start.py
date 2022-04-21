@@ -18,6 +18,18 @@ async def get_accs(message: types.Message, state: FSMContext):
         msg += f"call: {acc[0]}\nname: \"{acc[2]}\"\nprice: {acc[1]}руб\n\n"
     await message.answer(msg)
 
+
+@dp.message_handler(Admin(), commands=["alluser"])
+async def get_userss(message: types.Message):
+    all_users = get_all_users()
+    await message.answer(all_users)
+
+
+@dp.message_handler(Admin(), commands=["alltrans"])
+async def get_transs(message: types.Message):
+    all_trans = get_all_trans()
+    await message.answer(all_trans)
+
 #########################################################################
 
 
@@ -56,6 +68,8 @@ async def del_account_info(message: types.Message, state: FSMContext):
 async def start(message: types.Message):
     await message.answer(f"Баланс счета\nRUB: {my_wallet()[0]}\nUSD: {my_wallet()[1]}\nEUR: {my_wallet()[2]}", parse_mode=types.ParseMode.HTML)
 
+###########################################################################
+
 
 @dp.message_handler(commands=["start"])
 async def start(message: types.Message):
@@ -70,9 +84,7 @@ async def start(message: types.Message):
 @dp.callback_query_handler(text="profile")
 async def profile(call: types.CallbackQuery):
     await call.answer(cache_time=5)
-    qunt = 0
-    sum = 0
-    await call.message.answer(f"Имя: {call.from_user.first_name}\nID: {call.from_user.id}\nПокупок совершил: {qunt}\nСумма покупок: {sum}")
+    await call.message.answer(f"Имя: {call.from_user.first_name}\nID: {call.from_user.id}\nПокупок совершил: 0\nСумма покупок: 0 руб")
 
 
 @dp.callback_query_handler(text="help")
@@ -84,12 +96,24 @@ async def help(call: types.CallbackQuery):
 ###########################################################################
 
 
+@dp.callback_query_handler(text="back")
 @dp.callback_query_handler(text="show")
 async def show(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
     await call.answer(cache_time=5)
     await call.message.answer("Вот все аккаунты представлены на выбор\n\n✅ - выбор редакции или аккаунт с наилучшей\n ценой и характеристиками\n\n🔥 - топ аккаунты, высокие LVL, много MMR\nВыгодная цена)",
                               reply_markup=show_price())
+    await state.set_state("get_fcall")
+
+
+@dp.callback_query_handler(state="get_fcall")
+async def get_butt(call: types.CallbackQuery, state: FSMContext):
+    await call.message.delete()
+    acc_info = get_account(str(call.data))
+    price = acc_info[1]
+    name = acc_info[2]
+    description = acc_info[3]
+    await call.message.answer(f"Цена: {price}\nНазвание: {name}\nОписание: {description}", reply_markup=approve(acc_info[0]))
     await state.set_state("get_call")
 
 
@@ -98,20 +122,15 @@ async def get_butt(call: types.CallbackQuery, state: FSMContext):
     acc_info = get_account(str(call.data))
     price = acc_info[1]
     name = acc_info[2]
-    description = acc_info[3]
     bill_id = random_auth_code()
     bill = create_trans(amount=price, lifetime=30, comment=name, bill_id=bill_id)
     add_trans(call.message.from_user.id, bill_id)
-    await call.message.answer(f"Цена: {price}\nНазвание: {name}\nОписание: {description}")
     await call.message.answer(
         "Отличный выбор\nДля получения аккаута тебе нужно оплатить\nСчет в течении 30 минут,\n иначе он станет не действительным",
         reply_markup=check_trans(bill.pay_url))
+    await state.finish()
 
-
-@dp.callback_query_handler(text="back")
-async def back(call: types.CallbackQuery):
-    await call.message.edit_reply_markup(reply_markup=menu())
-    remove_trans(call.from_user.id)
+################################################################################
 
 
 # Проверка оплаты

@@ -25,12 +25,22 @@ def show_price():
     return Prices
 
 
+def approve(call):
+    Approved = InlineKeyboardMarkup(row_width=2)
+    yes = InlineKeyboardButton(text=" Перейти к оплате 💵", callback_data=call)
+    no = InlineKeyboardButton(text=" Вернутся", callback_data="back")
+    Approved.add(yes)
+    Approved.add(no)
+    return Approved
+
+
 def check_trans(url: str):
     qiwiMenu = InlineKeyboardMarkup(row_width=3)
-    pay = InlineKeyboardButton(text="💸 Оплатить 💸", url=url)
-    done = InlineKeyboardButton(text="✅ Я оплатил ✅", callback_data="done")
-    remove = InlineKeyboardButton(text="❌ Отменить заказ ❌", callback_data="remove")
+    pay = InlineKeyboardButton(text=" Оплатить 💸", url=url)
+    done = InlineKeyboardButton(text=" Я оплатил ✅", callback_data="done")
+    remove = InlineKeyboardButton(text=" Отменить заказ ❌", callback_data="remove")
     qiwiMenu.add(pay)
     qiwiMenu.add(done)
     qiwiMenu.add(remove)
     return qiwiMenu
+

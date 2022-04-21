@@ -61,6 +61,18 @@ def get_all_account():
     return all_accounts
 
 
+def get_all_users():
+    f = codecs.open("additional\\data\\users.txt", "r", "utf_8_sig")
+    all_users = f.read()
+    return all_users
+
+
+def get_all_trans():
+    f = codecs.open("additional\\data\\transactions.txt", "r", "utf_8_sig")
+    all_trans = f.read()
+    return all_trans
+
+
 def get_account(acc_call):
     f = codecs.open("additional\\data\\accounts.txt", "r", "utf_8_sig")
     all_acc = f.read()
@@ -152,7 +164,6 @@ def random_login_and_password():
     row = all_log.strip("\n").split("\n")
     index = randint(0, len(row))
     return row[index]
-
 
 
 def my_wallet():
