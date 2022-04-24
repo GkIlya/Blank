@@ -51,14 +51,14 @@ async def get_account_info(message: types.Message, state: FSMContext):
 
 @dp.message_handler(Admin(), commands=["del"])
 async def del_accs(message: types.Message, state: FSMContext):
-    await message.answer("Отправь в формате call:price:name:description")
+    await message.answer("Отправь callback аккаунта")
     await state.set_state("del_")
 
 
 @dp.message_handler(Admin(), state="del_")
 async def del_account_info(message: types.Message, state: FSMContext):
     remove_acc(message.text)
-    await message.answer(f"Аккаунт удален")
+    await message.answer(f"Аккаунт {message.text} удален")
     await state.finish()
 
 ###########################################################################
@@ -75,7 +75,7 @@ async def start(message: types.Message):
 async def start(message: types.Message):
     add_user(message.from_user.id)
     await message.answer("Бот запущен")
-    await message.answer(text="Привествую, мой маленький дота-рэпер👋\nЗдесь ты сможешь купить или продать аккаунты дота\nпо горяим ценам🔥\nЧтобы купить аккаунт просто нажми на кнопку\nи выбери понравишвийся\nДля продажи напиши админу - @satamem\n (он занесет аккаунт в базу в базу)\n\nЕсли возникут вопросы пиши, не стесняйся",
+    await message.answer(text=f"Привет, {message.from_user.first_name}👋\nЗдесь ты сможешь купить или продать аккаунты standoff 2\nпо горяим ценам🔥\nЧтобы купить аккаунт просто нажми на кнопку\nи выбери понравишвийся\nДля продажи напиши админу - @satamem\n (он занесет аккаунт в базу в базу)\n\nЕсли возникут вопросы пиши, не стесняйся",
                          reply_markup=menu(), parse_mode=ParseMode.HTML)
 
 
@@ -95,13 +95,13 @@ async def help(call: types.CallbackQuery):
 
 ###########################################################################
 
-
 @dp.callback_query_handler(text="back")
+@dp.callback_query_handler(state="get_call", text="back")
 @dp.callback_query_handler(text="show")
 async def show(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
     await call.answer(cache_time=5)
-    await call.message.answer("Вот все аккаунты представлены на выбор\n\n✅ - выбор редакции или аккаунт с наилучшей\n ценой и характеристиками\n\n🔥 - топ аккаунты, высокие LVL, много MMR\nВыгодная цена)",
+    await call.message.answer("Вот все аккаунты представлены на выбор\n\n✅ - выбор редакции или аккаунт с наилучшей\n ценой и характеристиками\n\n🔥 - топ аккаунты, высокие LVL, много MMR\nВыгодная цена\n\nНажми на понравившийся аккаунт чтобы посмотреть описание",
                               reply_markup=show_price())
     await state.set_state("get_fcall")
 
